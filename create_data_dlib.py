@@ -16,11 +16,12 @@ import math
 from dateutil.parser import parse
 import dlib
 
-def write_log(msg):
-	#LOG_FILENAME = 'log.txt'
+def write_log(msg):		
 	LOG_FILENAME = '/home/lifetech/python_face/log/log.txt'
 	logging.basicConfig(filename=LOG_FILENAME,level=logging.INFO)
 
+	handler = logging.FileHandler(LOG_FILENAME, 'w', 'utf-8') # or whatever
+	logging.addHandler(handler)
 	now = datetime.datetime.now()
 
 	logging.info(now.strftime("%Y-%m-%d %H:%M:%S") + ": " + msg)
