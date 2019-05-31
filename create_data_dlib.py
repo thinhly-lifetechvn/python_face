@@ -151,14 +151,14 @@ def getPosition(left, top, imgW, imgH, width, height):
 def checkinface(positionNumber, str_date):
 	url = "http://192.168.80.167:5000/checkinface/" + str(positionNumber) + '/' + str_date
 	myResponse = requests.get(url, verify=True)
-	return myResponse.content
+	return myResponse.content.decode("utf8")
 
 def getEmpNameByFacePos(positionNumber):
 	try:
 		url = "http://192.168.80.167:5000/getEmpNameByFacePos/" + str(positionNumber)
 		myResponse = requests.get(url, verify=True)
 		#return myResponse.content.decode("utf8")	
-		return myResponse.content
+		return myResponse.content.decode("utf8")
 	except Exception as e:
 		write_log('[getEmpNameByFacePos]-Exception message: ' + str(e))	
 			
