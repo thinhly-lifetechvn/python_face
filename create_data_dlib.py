@@ -73,7 +73,7 @@ def capture():
 				face = gray[d.top():d.bottom(), d.left():d.right()] 
 				
 				face_resize = cv2.resize(face, (width, height)) 
-				cv2.imwrite('% s/% s.png' % (path, datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")), face)  
+				cv2.imwrite('% s/% s.png' % (path, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")), face)  
 			
 		time.sleep(0.3)
 
