@@ -18,7 +18,7 @@ import dlib
 
 def write_log(msg):
 	#LOG_FILENAME = 'log.txt'
-	LOG_FILENAME = '/home/lifetech/face/log/log.txt'
+	LOG_FILENAME = '/home/lifetech/python_face/log/log.txt'
 	logging.basicConfig(filename=LOG_FILENAME,level=logging.INFO)
 
 	now = datetime.datetime.now()
@@ -28,11 +28,11 @@ def write_log(msg):
 	print(now.strftime("%Y-%m-%d %H:%M:%S") + ": " + msg)	
 
 def capture():
-	#haar_file = '/home/lifetech/face/haarcascade_frontalface_default.xml'
+	#haar_file = '/home/lifetech/python_face/haarcascade_frontalface_default.xml'
 
 	# All the faces data will be 
 	# present this folder 
-	datasets = '/home/lifetech/face/datasets'
+	datasets = '/home/lifetech/python_face/datasets'
 
 
 	# These are sub data sets of folder, 
@@ -80,11 +80,11 @@ def capture():
 def compare():
 	while True:
 		try:
-			while len(glob.glob("/home/lifetech/face/datasets/vivek/*.png")) > 0:				
-				for file in glob.glob("/home/lifetech/face/datasets/vivek/*.png"):
+			while len(glob.glob("/home/lifetech/python_face/datasets/vivek/*.png")) > 0:				
+				for file in glob.glob("/home/lifetech/python_face/datasets/vivek/*.png"):
 					try:
 						# Replace sourceFile and targetFile with the image files you want to compare.
-						#sourceFile='/home/lifetech/face/datasets/vivek/2019-05-29 16:52:15.837067.png'
+						#sourceFile='/home/lifetech/python_face/datasets/vivek/2019-05-29 16:52:15.837067.png'
 						sourceFile = file
 						#targetFile='https://s3.amazonaws.com/lifetech-face/Data.jpg'
 						client=boto3.client('rekognition')					
@@ -114,16 +114,16 @@ def compare():
 							pos = getPosition(position['Left'], position['Top'], 200, 300, 600, 300)										
 							str_date = parse(os.path.basename(sourceFile).replace('.png',''))
 							
-							write_log('Hi ' + str(getEmpNameByFacePos(pos)) + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
+							write_log('Hi ' + getEmpNameByFacePos(pos) + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
 							#write_log('Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
 							checkinface(pos, str_date.strftime("%Y-%m-%d %H:%M:%S"))
-							shutil.move(sourceFile, "/home/lifetech/face/datasets/vivek/ok/")
+							shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/ok/")
 						else:
 							write_log('Image not match in data.')
-							shutil.move(sourceFile, "/home/lifetech/face/datasets/vivek/unknow/")
+							shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/unknow/")
 					except Exception as e:
 						write_log('Exception message 1: ' + str(e))
-						shutil.move(sourceFile, "/home/lifetech/face/datasets/vivek/ufo/")
+						shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/ufo/")
 		except Exception as e:
 			write_log('Exception message 2: ' + str(e))	
 			
@@ -154,12 +154,10 @@ def checkinface(positionNumber, str_date):
 	return myResponse.content.decode("utf8")
 
 def getEmpNameByFacePos(positionNumber):
-	try:
-		url = "http://192.168.80.167:5000/getEmpNameByFacePos/" + str(positionNumber)
-		myResponse = requests.get(url, verify=True)
-		return myResponse.content.decode("utf8")
-	except Exception as e:
-		write_log('[getEmpNameByFacePos]-Exception message: ' + str(e))	
+	url = "http://192.168.80.167:5000/getEmpNameByFacePos/" + str(positionNumber)
+	myResponse = requests.get(url, verify=True)
+	return myResponse.content.decode("utf8")
+
 			
 write_log("Start camera with OpenCV Version: {}".format(cv2.__version__))
 write_log("Face detection with Dlib Version: {}".format(dlib.__version__))
@@ -176,7 +174,7 @@ t2.start()
 #compare()
 #t1 = threading.Thread(None, capture, None)
 #t1.start() 
-#shutil.move("/home/lifetech/face/datasets/vivek/2019-05-29 17:02:29.894378.png", "/home/lifetech/face/datasets/vivek/ok/")
-#print(len(glob.glob("/home/lifetech/face/datasets/vivek/*.png")))
-#for file in glob.glob("/home/lifetech/face/datasets/vivek/*.png"):
+#shutil.move("/home/lifetech/python_face/datasets/vivek/2019-05-29 17:02:29.894378.png", "/home/lifetech/python_face/datasets/vivek/ok/")
+#print(len(glob.glob("/home/lifetech/python_face/datasets/vivek/*.png")))
+#for file in glob.glob("/home/lifetech/python_face/datasets/vivek/*.png"):
 #	print(file)
