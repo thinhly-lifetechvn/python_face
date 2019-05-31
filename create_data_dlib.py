@@ -15,6 +15,7 @@ import shutil
 import math
 from dateutil.parser import parse
 import dlib
+import imutils
 
 def write_log(msg):
 	LOG_FILENAME = '/home/lifetech/python_face/log/log.txt'
@@ -56,6 +57,9 @@ def capture():
 
 	while True: 
 		(_, im) = webcam.read() 
+
+		im = imutils.resize(im, width=400)
+
 		gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) 
 
 		faces = detector(gray, 1)
