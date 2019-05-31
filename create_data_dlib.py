@@ -76,7 +76,7 @@ def capture():
 				face = gray[d.top():d.bottom(), d.left():d.right()] 
 				
 				#face_resize = cv2.resize(face, (width, height)) 
-				face_resize = imutils.resize(face, width=130, height=100) 
+				face_resize = imutils.resize(face, width=100) 
 
 				cv2.imwrite('% s/% s.png' % (path, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")), face_resize)  
 			
