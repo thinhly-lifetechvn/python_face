@@ -110,7 +110,7 @@ def compare():
 
 						imageSource.close()
 						#imageTarget.close()
-						if int(confidence) >= 90:
+						if float(confidence) >= 90:
 							pos = getPosition(position['Left'], position['Top'], 200, 300, 600, 300)										
 							str_date = parse(os.path.basename(sourceFile).replace('.png',''))
 							
