@@ -21,7 +21,8 @@ def write_log(msg):
 	logging.basicConfig(filename=LOG_FILENAME,level=logging.INFO)
 
 	handler = logging.FileHandler(LOG_FILENAME, 'w', 'utf-8') # or whatever
-	logging.addHandler(handler)
+	root_logger = logging.getLogger()
+	root_logger.addHandler(handler)
 	now = datetime.datetime.now()
 
 	logging.info(now.strftime("%Y-%m-%d %H:%M:%S") + ": " + msg)
