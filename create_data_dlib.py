@@ -18,7 +18,7 @@ import dlib
 
 def write_log(msg):
 	LOG_FILENAME = '/home/lifetech/python_face/log/log.txt'
-	logging.basicConfig(handlers=[logging.FileHandler(LOG_FILENAME, 'w', 'utf-8')], level=logging.INFO)
+	logging.basicConfig(handlers=[logging.FileHandler(LOG_FILENAME, 'a', 'utf-8')], level=logging.INFO)
 
 	now = datetime.datetime.now()
 
