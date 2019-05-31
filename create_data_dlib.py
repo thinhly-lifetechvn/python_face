@@ -157,7 +157,6 @@ def getEmpNameByFacePos(positionNumber):
 	try:
 		url = "http://192.168.80.167:5000/getEmpNameByFacePos/" + str(positionNumber)
 		myResponse = requests.get(url, verify=True)
-		#return myResponse.content.decode("utf8")	
 		return myResponse.content.decode("utf8")
 	except Exception as e:
 		write_log('[getEmpNameByFacePos]-Exception message: ' + str(e))	
