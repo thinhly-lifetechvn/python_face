@@ -74,7 +74,7 @@ def capture():
 				face_resize = cv2.resize(face, (width, height)) 
 				cv2.imwrite('% s/% s.png' % (path, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")), face_resize)  
 			
-		time.sleep(0.3)
+		#time.sleep(0.3)
 
 def compare():
 	while True:
