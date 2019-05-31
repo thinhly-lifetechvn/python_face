@@ -105,27 +105,30 @@ def compare():
 						response=client.compare_faces(SimilarityThreshold=70,
 													  SourceImage={'Bytes': imageSource.read()},
 													  TargetImage={'S3Object':{'Bucket':bucket,'Name':fileName}})
-						
-						for faceMatch in response['FaceMatches']:
-							position = faceMatch['Face']['BoundingBox']
-							confidence = str(faceMatch['Face']['Confidence'])
-							write_log('The face at ' +
-								   str(position['Left']) + ' ' +
-								   str(position['Top']) +
-								   ' matches with ' + confidence + '% confidence')
+						if len(response['FaceMatches']) > 0:
+							for faceMatch in response['FaceMatches']:
+								position = faceMatch['Face']['BoundingBox']
+								confidence = str(faceMatch['Face']['Confidence'])
+								write_log('The face at ' +
+									str(position['Left']) + ' ' +
+									str(position['Top']) +
+									' matches with ' + confidence + '% confidence')
 
-						imageSource.close()
-						#imageTarget.close()
-						if float(confidence) >= 90:
-							pos = getPosition(position['Left'], position['Top'], 200, 300, 600, 300)										
-							str_date = parse(os.path.basename(sourceFile).replace('.png',''))
-							name = getEmpNameByFacePos(pos)
-							# if checkinname != name:
-							# 	checkinname = name
-							write_log('Hi ' + name + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
-							#write_log('Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
-							checkinface(pos, str_date.strftime("%Y-%m-%d %H:%M:%S"))
-							shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/ok/")
+							imageSource.close()
+							#imageTarget.close()
+							if float(confidence) >= 90:
+								pos = getPosition(position['Left'], position['Top'], 200, 300, 600, 300)										
+								str_date = parse(os.path.basename(sourceFile).replace('.png',''))
+								name = getEmpNameByFacePos(pos)
+								# if checkinname != name:
+								# 	checkinname = name
+								write_log('Hi ' + name + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
+								#write_log('Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
+								checkinface(pos, str_date.strftime("%Y-%m-%d %H:%M:%S"))
+								shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/ok/")
+							else:
+								write_log('Image not match in data.')
+								shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/unknow/")
 						else:
 							write_log('Image not match in data.')
 							shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/unknow/")
