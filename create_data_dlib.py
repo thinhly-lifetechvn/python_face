@@ -171,11 +171,11 @@ write_log("Face detection with Dlib Version: {}".format(dlib.__version__))
 #Start capture thread
 write_log('Start capture thread')
 #capture()
-t1 = threading.Thread(target=capture, None)
+t1 = threading.Thread(None, target=capture, None)
 t1.start() 
 
 write_log('Start compare thread')
-t2 = threading.Thread(target=compare, None)
+t2 = threading.Thread(None, target=compare, None)
 t2.start() 
 #compare()
 #t1 = threading.Thread(None, capture, None)
