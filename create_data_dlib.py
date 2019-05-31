@@ -58,8 +58,8 @@ def capture():
 		(_, im) = webcam.read() 
 		gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) 
 
-		faces = detector(im, 1)
-				
+		faces = detector(gray, 1)
+		
 		if len(faces) > 0:
 			write_log("Number of faces detected: {}".format(len(faces)))
 		#	cv2.imwrite('% s/% s.png' % (path, datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")), im)  
