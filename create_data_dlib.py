@@ -79,7 +79,8 @@ def capture():
 def compare():
 	while True:
 		try:
-			while len(glob.glob("/home/lifetech/python_face/datasets/vivek/*.png")) > 0:				
+			while len(glob.glob("/home/lifetech/python_face/datasets/vivek/*.png")) > 0:	
+				checkinname = ''			
 				for file in glob.glob("/home/lifetech/python_face/datasets/vivek/*.png"):
 					try:
 						# Replace sourceFile and targetFile with the image files you want to compare.
@@ -112,8 +113,10 @@ def compare():
 						if float(confidence) >= 90:
 							pos = getPosition(position['Left'], position['Top'], 200, 300, 600, 300)										
 							str_date = parse(os.path.basename(sourceFile).replace('.png',''))
-							
-							write_log('Hi ' + getEmpNameByFacePos(pos) + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
+							name = getEmpNameByFacePos(pos)
+							if checkinname != name:
+								checkinname = name
+								write_log('Hi ' + checkinname + ', Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
 							#write_log('Your checkin time: ' + str_date.strftime("%Y-%m-%d %H:%M:%S"))
 							checkinface(pos, str_date.strftime("%Y-%m-%d %H:%M:%S"))
 							shutil.move(sourceFile, "/home/lifetech/python_face/datasets/vivek/ok/")
